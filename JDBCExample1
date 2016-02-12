@@ -1,0 +1,250 @@
+package server;
+
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.sql.Statement;
+import java.util.Random;
+
+
+public class JDBCExample1 {
+    static final String JDBC_DRIVER = "com.mysql.jdbc.Driver";
+     static final String DB_URL = "jdbc:mysql://localhost/test";
+     static Connection conn;
+     static Statement stmt;
+     public static void connect()
+   {
+   //  Database credentials
+    final String USER = "";
+    final String PASS = "";
+   
+   
+      conn = null;
+      stmt = null;
+   try{
+      //STEP 2: Register JDBC driver
+      Class.forName("com.mysql.jdbc.Driver");
+
+      //STEP 3: Open a connection
+      System.out.println("Connecting to a selected database...");
+      conn = DriverManager.getConnection(DB_URL, USER, PASS);
+      System.out.println("Connected database successfully...");
+            
+
+   }catch(SQLException se){
+   }catch(ClassNotFoundException e){
+      //Handle errors for Class.forName
+      e.printStackTrace();
+   }finally{
+      //end try
+     System.out.println("Goodbye!");
+     
+   }}
+    
+    public static boolean authenticate(String user_name,String password) throws SQLException
+    {
+     System.out.println("authenticating records from the table...");
+     stmt = conn.createStatement();
+      
+      ResultSet rs;
+ 
+            rs = stmt.executeQuery("SELECT password FROM authenticator WHERE user_name = '"+user_name+"';");
+            if ( rs.next() ) {
+                
+                String pass = rs.getString("password");
+                System.out.println(pass);
+                if(pass.equals(password))          
+                    return true;
+                else 
+                    return false;
+            }
+            return false;
+    }
+    public static boolean SignUprequest(String firstname,String lastname,String email,String user_name,String password,int otp) throws SQLException
+    {
+      connect();
+      
+     System.out.println("authenticating records from the table...");
+     stmt = conn.createStatement();
+      
+      ResultSet rs;
+ 
+            rs = stmt.executeQuery("SELECT otp FROM otpmanager WHERE email = '"+email+"';");
+            
+            if ( rs.next() ) {
+                
+                int otp1;
+                otp1 = rs.getInt("otp");
+                System.out.println(otp);
+                if(otp1 == otp)          
+                {
+                System.out.println("Inserting records into the table...");
+      stmt = conn.createStatement();
+      
+      String sql1 = "INSERT INTO user_info " +
+                   "VALUES ('"+firstname+"', '"+lastname+"', '"+email+"','"+user_name+"')";
+      
+      int a = stmt.executeUpdate(sql1);
+      String sql = "INSERT INTO authenticator " +
+                   "VALUES ('"+user_name+"','"+password+"')";
+      
+      int b = stmt.executeUpdate(sql);
+      if(a == 1 && b == 1)
+          return true;
+      else 
+           return false;
+                }
+                    
+                else 
+                    return false;
+            }
+
+            
+      System.out.println("Inserting records into the table...");
+      stmt = conn.createStatement();
+      
+      String sql1 = "INSERT INTO user_info " +
+                   "VALUES ('"+firstname+"', '"+lastname+"', '"+email+"','"+user_name+"')";
+      
+      int a = stmt.executeUpdate(sql1);
+      String sql = "INSERT INTO authenticator " +
+                   "VALUES ('"+user_name+"','"+password+"')";
+      
+      int b = stmt.executeUpdate(sql);
+      if(a == 1 && b == 1)
+          return true;
+      else 
+           return false;
+    }
+    
+    public static boolean checkUsername (String username1) throws SQLException
+    {
+        connect();
+        ResultSet rs;
+      System.out.println("Checking for username");
+      stmt = conn.createStatement();
+      
+      String sql1 = "select user_name from authenticator where user_name ='" + username1+"';";
+                   
+      
+      rs = stmt.executeQuery(sql1);
+     if ( rs.next() ) {
+                
+                
+                    return false;
+                
+            }
+            return true;
+    }
+     public static boolean saveotp(String email,int otp) throws SQLException
+    {
+      connect();
+      
+      System.out.println("Inserting records into the table...");
+      stmt = conn.createStatement();
+      
+      String sql1 = "INSERT INTO OtpManager " +
+                   "VALUES ('"+email+"', '"+otp+"')";
+      
+      int a = stmt.executeUpdate(sql1);
+      if(a == 1)
+          return true;
+      else 
+           return false;
+    }
+     
+public static boolean extractemail(String username) throws SQLException
+{
+    connect();
+    ResultSet rs;
+    System.out.println("Checking for email from username:");
+     stmt = conn.createStatement();
+      
+      String sql1 = "SELECT email from user_info where username = '"+username+"'"; 
+                   
+      
+      rs = stmt.executeQuery(sql1);
+     Random rand = new Random();
+       int otp= Math.abs(rand.nextInt());
+        boolean temp= JDBCExample1.saveotp(rs.toString(),otp);
+        if (temp)
+        {
+       SendEmail.send(rs.toString(), otp);
+        }
+        return temp;
+    
+}
+public static void deleteotp(String email) throws SQLException
+{
+    connect();
+    ResultSet rs;
+    System.out.println("deleting otp:");
+     stmt = conn.createStatement();
+      
+      String sql1 = "DELETE * FROM otpmanager where email = '"+email+"'"; 
+                   
+      
+      rs = stmt.executeQuery(sql1);
+}
+
+public static boolean changepassword(String username,int otp) throws SQLException
+{
+    connect();
+    ResultSet rs;
+    System.out.println("reseting pasword:");
+     stmt = conn.createStatement();
+     boolean temp= checkotp(username,otp);
+     if(temp)
+     {
+      
+      String sql1 = "UPDATE PASSWORD FROM AUTHENTICATOR where username = '"+username+"'"; 
+                   
+      
+      rs = stmt.executeQuery(sql1);
+       if ( rs.next() ) {
+                
+                
+                    return true;
+                
+            }
+            return false;
+     }
+     else
+        return false;
+}
+
+public static boolean checkotp(String username,int otp) throws SQLException
+{
+      connect();
+      
+     System.out.println("authenticating records from the table...");
+     stmt = conn.createStatement();
+      
+      ResultSet rs,rs1;
+      
+    //System.out.println("Checking for email from username:");
+     
+      
+      String sql1 = "SELECT email from user_info where username = '"+username+"'"; 
+                   
+      
+      rs = stmt.executeQuery(sql1);
+      String email = rs.toString();
+ 
+            rs1 = stmt.executeQuery("SELECT otp FROM otpmanager WHERE email = '"+email+"';");
+            
+            if ( rs1.next() ) {
+                
+                int otp1;
+                otp1 = rs.getInt("otp");
+                if(otp1 == otp)          
+                {
+                    return true;
+                }    
+                 return false;    
+            }
+            return false;
+}
+
+}
