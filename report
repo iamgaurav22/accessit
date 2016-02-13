@@ -1,0 +1,786 @@
+SAVITRIBAI PHULE PUNE UNIVERSITY
+A Preliminary Project Report On
+ACCESSit:Uniform interface for personal data
+access on multiple clouds
+By
+Unmesh Deodhar B120234247
+Atul Agarwal B120234205
+Gaurav Chaudhari B120234237
+Gaurav Deshpande B120234252
+Under the Guidance of
+Dr. J. R. Prasad
+In Partial Fulfillment of
+SINHGAD COLLEGE OF ENGINEERING, PUNE-41
+B.E. (COMPUTER ENGINEERING
+SAVITRIBAI PHULE PUNE UNIVERSITY
+2015-16
+Sinhgad Technical Education Society,
+Department of Computer Engineering
+Sinhgad College of Engineering, Pune - 41
+Certificate
+This is to certify that the Project entitled “ACCESSit: Uniform interface for personal data access
+on multiple clouds.”
+submitted by
+. Unmesh Deodhar B120234247
+. Atul Agarwal B120234205
+. Gaurav Chaudhari B120234237
+. Gaurav Deshpande B120234252
+is record of bonafide work carried out by them, under my guidance, in partial fulfillment of the
+requirement for the award of the Degree of Bachelor of Engineering (Computer Engineering) of
+Savitribai Phule Pune University.
+Date :
+Place : Sinhgad College of Engineeing, Vadgaon (Bk.), Pune - 411041
+DR. J. R. Prasad Prof. P. R. Futane
+Project Guide Head of Department
+. Department of Computer Engineering
+Prof. Dr. S. D. Lokhande
+External Examiner Principal, SCOE
+Abstract
+Now-A-Days almost everyone has account on multiple cloud storage websites. So, accessing
+multiple clouds becomes time exhausting. Thus, there is need to have single
+interface which will give access to multiple clouds. Although, we have websites which
+provide this facility But, Application for such websites is not available. Additionally,
+there are some applications for windows but, Either they are not platform independent or
+they do not have facility to access multiple clouds. Our application lets user to access
+multiple clouds as well as it will be platform independent.
+ii
+List of Figures
+1.1 insync . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 3
+1.2 dropbox . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 3
+2.1 System Architecture. . . . . . . . . . . . . . . . . . . . . . . . . . . . . 7
+2.2 Class relationships . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 8
+2.3 Identification of Classes . . . . . . . . . . . . . . . . . . . . . . . . . . . 9
+3.1 System Architecture . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 13
+3.2 The Activity Diagram . . . . . . . . . . . . . . . . . . . . . . . . . . . . 14
+3.3 Sequence Diagram . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 15
+3.4 Dataflow Diagram . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 16
+A.1 An IDEA matrix . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 23
+iii
+Contents
+Certificate i
+Abstract ii
+List Of Figures ii
+1 INTRODUCTION 1
+1.1 General Introduction . . . . . . . . . . . . . . . . . . . . . . . . . . . . 1
+1.2 Literature Survey . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 1
+1.3 Purpose . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 3
+1.4 Scope . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 4
+1.5 Definitions, Acronyms, and Abbreviations . . . . . . . . . . . . . . . . . 4
+1.6 Outline . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 5
+2 SOFTWARE REQUIREMENTS SPECIFICATION
+DOCUMENT 6
+2.1 Introduction . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 6
+2.1.1 Purpose . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 6
+2.1.2 Intended Audience and Reading Suggestions . . . . . . . . . . . 6
+2.1.3 Product Scope . . . . . . . . . . . . . . . . . . . . . . . . . . . . 7
+2.2 Overall Description . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 7
+2.2.1 Product Perspective . . . . . . . . . . . . . . . . . . . . . . . . . 7
+2.2.2 Product Functions . . . . . . . . . . . . . . . . . . . . . . . . . . 7
+2.2.3 User Classes and Characteristics . . . . . . . . . . . . . . . . . . 8
+2.2.4 Operating Environment . . . . . . . . . . . . . . . . . . . . . . . 9
+2.2.5 User Documentation . . . . . . . . . . . . . . . . . . . . . . . . 9
+2.2.6 Assumptions and Dependencies . . . . . . . . . . . . . . . . . . 10
+2.3 External Interface Requirements . . . . . . . . . . . . . . . . . . . . . . 10
+2.3.1 User Interfaces . . . . . . . . . . . . . . . . . . . . . . . . . . . 10
+2.3.2 Hardware Interfaces . . . . . . . . . . . . . . . . . . . . . . . . . 10
+2.3.3 Software Interfaces . . . . . . . . . . . . . . . . . . . . . . . . . 10
+2.3.4 Communications Interfaces . . . . . . . . . . . . . . . . . . . . . 11
+2.4 System Features . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 11
+2.4.1 Description and Priority . . . . . . . . . . . . . . . . . . . . . . 11
+2.4.2 Response Sequences . . . . . . . . . . . . . . . . . . . . . . . . 11
+2.4.3 Functional Requirements . . . . . . . . . . . . . . . . . . . . . . 11
+2.5 Other Non-Functional Requirements . . . . . . . . . . . . . . . . . . . . 11
+2.5.1 Performance Requirements . . . . . . . . . . . . . . . . . . . . . 11
+2.5.2 Security and Safety Requirements . . . . . . . . . . . . . . . . . 12
+2.5.3 Software Quality Attributes . . . . . . . . . . . . . . . . . . . . . 12
+2.5.4 Business Rules . . . . . . . . . . . . . . . . . . . . . . . . . . . 12
+3 SOFTWARE DESIGN SPECIFICATION 13
+3.1 Architectural and Component Level Design . . . . . . . . . . . . . . . . 13
+3.1.1 UML Diagrams . . . . . . . . . . . . . . . . . . . . . . . . . . . 14
+3.2 Software Interface Description . . . . . . . . . . . . . . . . . . . . . . . 16
+4 PROJECT PLAN AND RISK ANALYSIS 17
+4.1 Project Task Set . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 17
+4.2 Functional Decomposition . . . . . . . . . . . . . . . . . . . . . . . . . 18
+4.3 Software Sizing . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 18
+4.4 Timeline Chart . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 19
+4.5 Risk Analysis . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 20
+Appendix 22
+A 22
+A.1 ACM Keywords . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 22
+A.2 IDEA Matrix . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 23
+A.3 Mathematical Model and Analysis . . . . . . . . . . . . . . . . . . . . . 23
+A.3.1 Mathematical Model . . . . . . . . . . . . . . . . . . . . . . . . 23
+A.3.2 Feasibility Analysis . . . . . . . . . . . . . . . . . . . . . . . . . 25
+B 31
+B.1 Introduction . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 31
+B.2 Test Items . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 31
+B.3 Features to be Tested . . . . . . . . . . . . . . . . . . . . . . . . . . . . 32
+B.4 Reliability Testing . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 32
+B.5 Approach (Strategy) . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 33
+C 34
+C.1 Individual Contributions . . . . . . . . . . . . . . . . . . . . . . . . . . 34
+References 36
+Chapter 1
+INTRODUCTION
+1.1 General Introduction
+By 2020 we will live in the world of cloud .every data bit you want in your day to day
+life will be saved on cloud. You will just have to have an application to access your
+data on cloud. There are various applications available to access your cloud data on your
+personal computer but they are not that much developed. Some applications provide you
+the facility to use multiple accounts but they dont support various platform. Some will
+support for various environments but they dont give facility to share a file between two
+users. There is much need of developing such efficient application that will provide all
+these facilities in single application. Our idea is to develop such application and provide a
+uniform interface to access personal data on multiple clouds. Our application ACCESSit
+will be the software which will provide such uniform interface
+1.2 Literature Survey
+There have been multiple attempts at this challenge using different methods.
+ 1) MULTCLOUD It will help you transfer files across cloud drives and do the
+centralized management. Luckily, it is FREE, safe and reliable. Various Clouds
+Supported It has provided the prefect support for various clouds. At the same time,
+you can handle multiple accounts in one provided by the same service provider.
+Supposing that you have registered two accounts in Google Drive, it can manage
+all the files of both accounts simultaneously.
+File Transfer across Cloud Drives It can move or transfer files form one cloud to
+another for better realizing the file transfer operation among multiple cloud drives
+without downloading to local. For example, through MultCloud, you can directly
+copy the files in Google Drive and paste to OneDrive, and this process will be
+accomplished online.
+Still transfer even after power off MultCloud uses the new background of transmission
+technology, making the files transfer doesn’t need to start the computer, that is
+1
+Department of Computer Engineering ACCESSit : an uniform interface
+to say, in the case of power off, MultCloud can also realize the transmission from
+a cloud drive to another. You only need to Copy and Paste, then MultCloud server
+will achieve everything for you.
+Scheduled transfer If you encounter that some files may need to backup regularly,
+for example, make a data transferring on the last day of every month. MultCloud
+supports scheduled transfer function. It allows you to set the daily, weekly or
+monthly in the specific time for data transmission. It also supports to send an email
+to you after completing the transmission and inform the result.
+Multi-server parallel transmission In order to improve the data transmission speed
+and stability, MultCloud uses Multi-server parallel transmission technology, which
+makes the file transferring success rate increased by 200
+Cloud File Manager MultCloud can manage your files in multiple cloud drives like
+theWindows Explorer, and perform operations such as upload, download, cut, copy,
+paste, move, delete, rename, new folder, etc. Such as: File Sharing can share the
+files with your friends; File Search can search for files and folders across cloud
+drives through keywords; File Preview allow you to online view some office documents
+such as DOC, PDF, XLS, etc.
+Free to Use More Space Generally speaking, each cloud drive will just free provide
+a small storage space. Thus, a big one will come into begins after adding all free
+space of this cloud drives together. For instance, if you have registered five Dropbox
+accounts and each one has offered 2GB free space, you can use the free 10GB space
+conveniently with the help of MultCloud.
+Security Guarantee MultCloud not only provides powerful functions but also ensures
+the highest security for data management through three ways below: Website
+connect and data transfer using 256-bit AES encryption for SSL. Does not save or
+cache your data and files on our servers. Access cloud
+ 2)
+2015-2016 2 Group No. 07
+Department of Computer Engineering ACCESSit : an uniform interface
+Figure 1.1: insync
+3)
+Figure 1.2: dropbox
+1.3 Purpose
+Nowadays almost 3 billion people uses different cloud services. In which they store
+many personal information like images, videos, notes, certificates day to day. Most
+of the time a single user uses multiple clouds at the same time for that user has
+to use different applications or are dependent on browsers, but managing different
+applications and multiple sign-in on browser is irksome. Besides this there can be
+2015-2016 3 Group No. 07
+Department of Computer Engineering ACCESSit : an uniform interface
+redundancy for storing the file on different clouds resulting in wastage of cloud
+storage.
+Major cloud storage providers are Google Drive, OneDrive, Amazon S3 and Drop-
+Box. Almost every cloud storage has 240 million users. As previously stated many
+users have multiple account for same cloud storage, but the official applications
+does not provide multiple sign-in support or is available for pro users i.e. paid
+version of applications. Huge numbers users get deprived from accessing multiple
+account for same cloud provider.
+Although there are official and many third party applications for accessing cloud
+storages but they support single operating system. Even though there are some
+third party applications which support all operating environment they have different
+interface for different platforms.
+So we intend to provide uniform interface for major operating systems to access
+various clouds with multiple account support.
+1.4 Scope
+ACCESSit will be available for Windows and Linux based operating platform as it
+is very vast to cover all the operating system platforms. Proposed system provides
+uniform interface which will enable users to access 4 clouds on same interface viz.
+Google Drive, Amazon s3, Dropbox, One Drive. Every user will be able to link
+up-to 5 accounts for each cloud storages.
+1.5 Definitions, Acronyms, and Abbreviations
+– ILF : Internal Logical Files
+– EIF : External Interface Files
+– EI : External Input
+– EO : External Output
+– EE : External Enquiry
+– FPA : Function Point Analysis
+– GUI : Graphical user interface
+2015-2016 4 Group No. 07
+Department of Computer Engineering ACCESSit : an uniform interface
+– API : Application Programmable Interface
+1.6 Outline
+The organization of the document is as follows. The report first deals with Software
+Requirement Specification(SRS) of the project consisting of hardware, software,
+functional and non functional requirements . Then the report further elaborates
+the designing and architecture of the system with the help of UML diagrams and
+interfaces. The report further consist of planning of the project with deadlines and
+modules along with risk analysis. Furthermore there is mathematical model, testing
+analysis and individual contribution of all the group members. Finally the document
+ends with references and conclusion.
+2015-2016 5 Group No. 07
+Chapter 2
+SOFTWARE REQUIREMENTS SPECIFICATION
+DOCUMENT
+2.1 Introduction
+2.1.1 Purpose
+A software requirements specification (SRS) is a description of a software system
+to be developed, laying out functional and non-functional requirements, and may
+include a set of use cases that describe interactions the users will have with the
+software.
+Software requirements specification establishes the basis for an agreement between
+customers and contractors or suppliers (in market-driven projects, these roles may
+be played by the marketing and development divisions) on what the software product
+is to do as well as what it is not expected to do. Software requirements specification
+permits a rigorous assessment of requirements before design can begin and
+reduces later redesign. It should also provide a realistic basis for estimating product
+costs, risks, and schedules.
+The software requirements specification document enlists enough and necessary
+requirements that are required for the project development. To derive the requirements
+we need to have clear and thorough understanding of the products to be
+developed or being developed. This is achieved and refined with detailed and continuous
+communications with the project team and customer till the completion of
+the software
+2.1.2 Intended Audience and Reading Suggestions
+Intended audience of document is developer, designer, tester, project coordinator,
+project guide and external examiner. Readers interested in a brief overview of the
+6
+Department of Computer Engineering ACCESSit : an uniform interface
+product should focus on chapter 3.1.1 (Purpose). Readers who wish to explore the
+features should read chapter 3 (System Features and External Interface Requirements).
+Readers interested in non-technical aspect of project should read sub part of
+chapter 3 (Non-functional requirements and other requirements).
+2.1.3 Product Scope
+ACCESSit will be available for Windows and Linux based operating platform as it
+is very vast to cover all the operating system platforms. Proposed system provides
+uniform interface which will enable users to access 4 clouds on same interface viz.
+Google Drive, Amazon s3, Dropbox, One Drive. Every user will be able to link
+up-to 5 accounts for each cloud storages.
+2.2 Overall Description
+2.2.1 Product Perspective
+Our product, ACCESSit is distinct from other software that are available in the market.
+We dont share our idea with any other product. Our product is self- contained
+product and its not a smaller module of any larger product. Here is brief architecture
+of our product
+Figure 2.1: System Architecture.
+2.2.2 Product Functions
+– There are various functions that are provided by our product that are given as
+follows
+2015-2016 7 Group No. 07
+Department of Computer Engineering ACCESSit : an uniform interface
+– Pause and Resume function.
+– Link and Re-link. function
+– File transfer function.
+– Password on delete function.
+– Function for reminder
+– Function for searching a file.
+2.2.3 User Classes and Characteristics
+Figure 2.2: Class relationships
+2015-2016 8 Group No. 07
+Department of Computer Engineering ACCESSit : an uniform interface
+Figure 2.3: Identification of Classes
+2.2.4 Operating Environment
+For users and administrator, operating environment can be anything (UNIX, Windows)
+because it will be web based application using Java and can be accessed from
+any operating system. For our server operating system will be windows.
+– Execution Environment: Windows 7 and above, fedora 18 and above
+– Client side programming language: Java 1.7.0.51
+– Server side programming language: Java 1.7
+– Server Platform: Apache Tomcat 7.0.x
+– Database language: SQL
+– Development kit: Net beans 7.4
+2.2.5 User Documentation
+The user help manual will be provided to the user consisting of all the guidelines to
+use the system and all the care measures to be taken while using the system. This
+document will be written in standard English language.
+2015-2016 9 Group No. 07
+Department of Computer Engineering ACCESSit : an uniform interface
+2.2.6 Assumptions and Dependencies
+There are certain things that assumed before a user installs our system on their
+personal computer. User is expected to have computer with internet and should
+be able to register and send attributes. The user cannot have two accounts having
+the same email id. So if the user is already registered using an email id, he is not
+allowed to login using the same email id. User interface and some functionalities
+can change during the development process of project and also new functionalities
+can be added which is able to change the dependent system requirements
+2.3 External Interface Requirements
+2.3.1 User Interfaces
+The user UI is designed to be used by user and administrator .This UI will be designed
+for use with keyboard. The UI shall provide simple graphical interfaces,
+similar to a map, to allow the user to select seats as the target of operations.
+2.3.2 Hardware Interfaces
+– Two computers.
+– Internet speed minimum 512 Kbps
+– RAM: 2 GB RAM
+2.3.3 Software Interfaces
+Following interfaces are identified -
+– Programming Language : Java 1.7.0.51
+– Web server: Apache Tomcat 7.0.x
+– Cloud: Drop box, Google Drive, One Drive, Amazon S3
+– Operating System: Windows 7 and above, Fedora 18 and above
+2015-2016 10 Group No. 07
+Department of Computer Engineering ACCESSit : an uniform interface
+2.3.4 Communications Interfaces
+– The communication interface, allows the user to communicate to the system.
+The user can store the data and access the required data through this interface.
+The data communication is done through this interface.
+– For network connections, HTTP requests will be used.
+2.4 System Features
+LINK RELINK
+2.4.1 Description and Priority
+Suppose a user has downloaded a huge file from cloud or he already has file from
+some other source irrespective of ACCESSit i.e complete sync or partial sync the
+user will be prompted to download that file. To avoid such circumstances Link and
+relink feature is incorporated in ACCESSit. The main purpose of this feature is to
+facilitate user linking an existing file to the respective file on cloud.
+2.4.2 Response Sequences
+Complete file will be taken from user. Then user will be asked for file on cloud to
+which local file will be linked. That particular file will not be downloaded and it
+will be moved from local space to ACCESSit directory space.
+2.4.3 Functional Requirements
+Metadata should be matched. Metadata includes name, type, size, access modifier.
+2.5 Other Non-Functional Requirements
+2.5.1 Performance Requirements
+– High configured computer for Server.
+– System used High speed internet for faster data uploading and downloading
+from cloud.
+2015-2016 11 Group No. 07
+Department of Computer Engineering ACCESSit : an uniform interface
+– For good performance the server should be tuned to server only server process
+and most of the RAM should be used for our application.
+2.5.2 Security and Safety Requirements
+There is big issue of safety, because when it comes to upload or download the data
+from clouds like personal information it should be secure .besides the password and
+username are very sensitive information and it should be much secured.One more
+security aspect is that the person sitting at the server must be authorized person to
+see or manipulate the computed data sent by the system.
+2.5.3 Software Quality Attributes
+Adaptability-As more number of APIs will be available,our application could adapt
+to to given cloud service
+Interoperability - the product can operate among various type of operating systems
+and hence can operate with a set-up as desired by the user.
+Maintainability - the product will need some maintenance but will will be trivial as
+compared to the amount of resources it will be saving.
+usability- the product is usable in a variety of scenarios.
+2.5.4 Business Rules
+This product is only a accessing service to various clouds. Other Services like
+storage of Videos and Images are to be managed by the user itself.
+2015-2016 12 Group No. 07
+Chapter 3
+SOFTWARE DESIGN SPECIFICATION
+3.1 Architectural and Component Level Design
+We will develop simple and poweful GUI which will connect to respective API and
+then file will be uploaded or downloaded from/to respective server. Now when we
+are saying we are going to design a powerful GUI means it will be very simple to
+use,it will have ability to deal with all possible keyboard shortcuts.after the GUI
+we have to integrate the GUI with the backgroud cloud data and that will be done
+throughthhe help of API.now we are going to use REST and Java APIs for this
+purpose.
+Figure 3.1: System Architecture
+13
+Department of Computer Engineering ACCESSit : an uniform interface
+3.1.1 UML Diagrams
+Figure 3.2: The Activity Diagram
+2015-2016 14 Group No. 07
+Department of Computer Engineering ACCESSit : an uniform interface
+Figure 3.3: Sequence Diagram
+2015-2016 15 Group No. 07
+Department of Computer Engineering ACCESSit : an uniform interface
+Figure 3.4: Dataflow Diagram
+3.2 Software Interface Description
+– JavaFX [JavaFX is a software platform for creating and delivering desktop
+applications, it is intended to replace Swing as the standard GUI library for
+Java SE]
+– Java [Java primarily is platform independent language used to support application
+development for both Windows and Linux.]
+– NetBeans IDE [Used for development.]
+– Various Cloud API [To access the respective cloud.]
+2015-2016 16 Group No. 07
+Chapter 4
+PROJECT PLAN AND RISK ANALYSIS
+4.1 Project Task Set
+Incremental Process model will be suitable for implementation of this project. Because,
+we are planning to start implementation from single cloud integration and
+incrementally develop the system to handle more cloud. We expect to deliver iterations
+of software with improvement in performance or adding new feature in each
+iteration.
+Framework Activities -
+1. Survey of research and communication : This activity involves surveying current
+research and existing approaches as well as communicating with project
+guides, review panel members for refinement of project idea.
+Task Sets
+– Tasks : Conduct research on idea and study existing approaches. Evaluate
+pros and cons. Collect relevant journal/research papers. Explain idea to
+project guides and note their comments.
+– Deliverables : Comparison of all existing approaches and selection of
+methodology to use in the project.
+2. Planning : Planning the project involving timeline preparation, technical tasks
+to be done, feasibility and risk analysis etc.
+Task Sets
+– Tasks : Division of implementation activities across the given time for
+project, assigning group members responsibilities, obtaining the programming
+resources and tools needed to implement project.
+– Deliverables : Risk chart, feasibility analysis using mathematics, selection
+of emulator for the gaming console, Project timeline chart.
+17
+Department of Computer Engineering ACCESSit : an uniform interface
+3. Design and Modelling : The system to be developed is to be designed using
+UML diagrams and mathematical modelling of the system is to be done.
+Task Sets
+– Tasks : System breakdown to identify components, identify actors in system,
+features to be present and not present, interaction between components,
+flow of data, identifying classes.
+– Deliverables : System architecture diagram, Component diagram, Use
+cases, Class diagram, flowchart.
+4. Coding and Implementation : Coding and implementing of all hardware components
+of system, binding components together and testing is performed.
+Task Sets
+– Tasks : Coding of componnets by respective group members as per the
+design approved in previous activity, Interfacing components and testing
+on test games.
+– Deliverables : Core software implementation in first iteration, result of
+testing features, identifying bugs and failures if any.
+4.2 Functional Decomposition
+A functional breakdown is a process of taking complex process and breaking it
+down in smaller and simpler parts. For ex. Lets breakdown the Sync function
+1. Contact the server
+2. Collect the change
+3. If there is addition of file or cloud then download the file if it is a complete
+sync and if it is partial sync, notify the user.
+4.3 Software Sizing
+Using Function point calculation, the estimate of software size is evaluated as follows.
+2015-2016 18 Group No. 07
+Department of Computer Engineering ACCESSit : an uniform interface
+4.4 Timeline Chart
+The project Activities are planned as per the following timeline charts.
+2015-2016 19 Group No. 07
+Department of Computer Engineering ACCESSit : an uniform interface
+4.5 Risk Analysis
+We have identified following risks and associated parameter concerning to this
+project.
+The impact is weighed as -
+1. Catastrophic 2. Critical 3. Marginal 4. Negligible
+2015-2016 20 Group No. 07
+Department of Computer Engineering ACCESSit : an uniform interface
+2015-2016 21 Group No. 07
+Appendix A
+A.1 ACM Keywords
+1. D. Software Engineering
+(a) D.2 Design Tools and Techniques
+i. UML Diagrams
+A. Use Case
+B. Class
+C. Component
+D. Deployment
+E. Sequence
+1. H.Information Systems
+(a) H.3 INFORMATION STORAGE AND RETRIEVAL
+i. H.3.5 Online Information Services
+A. Data sharing
+B. Web-based services
+(b) H.5 INFORMATION INTERFACES AND PRESENTATION
+i. H.5.2 User Interfaces
+A. Graphical user interfaces
+B. Screen design
+C. User interface management systems
+2. K. Computing Milieux
+(a) K.6 MANAGEMENT OF COMPUTING AND INFORMATION SYSTEMS
+i. K.6.3 Software Management
+22
+Department of Computer Engineering ACCESSit : an uniform interface
+A. Software development
+B. Software maintenance
+C. Software process
+A.2 IDEA Matrix
+Figure A.1: An IDEA matrix
+A.3 Mathematical Model and Analysis
+A.3.1 Mathematical Model
+System Description: Let U is system for ACCESSit-Uniform interface for accessing
+personal data on multiple clouds. U = (I.O,Fn,Su,Er)
+– I = set of all Inputs
+– O = set of all outputs
+– Fn = (Search(),password on delete(),file sharing())
+where,
+2015-2016 23 Group No. 07
+Department of Computer Engineering ACCESSit : an uniform interface
+1. Search() : when user will have to serach a file ,this function will come in
+play
+2. password on delete() : provide a secure way to delete a file
+3. file sharing() : this function will help to transfer a file between two clouds
+– Su= set of all success cases
+– Er = set of all error cases
+search()
+F1 = It is a function to search a file
+F1=(I.O,Su,Er)
+Where,
+I = file name to be searched
+O = file is found or not found
+Su = present file is correctly shown and absent file is not shown
+Er = file is present and still it is not shown
+Password on delete
+F2 = It is a function to delete a file by taking input Set S and give output
+set D
+F2 = (I,O,Su,Er)
+Where,
+I = (f,p)
+Where,
+f = file name to be deleted
+p = Password of the account
+O = the storage is updated correctly
+Su = Password is authenticated and file is deleted
+2015-2016 24 Group No. 07
+Department of Computer Engineering ACCESSit : an uniform interface
+Er = (E1,E2)
+Where ,
+E1 = Authentication failure.
+E2 = Password is authenticated but the file is not deleted
+File Sharing
+F2 = It is a function to share a file by taking input Set S and give output set
+D
+F2 = (I,O,Su,Er)
+I =(f,id)
+Where,
+f = file name to be shared
+id = One time ID generated
+O = Target cloud is updated.
+Su = one time ID is verified and the receiver receives the file.
+Er = E1,E2
+Where ,
+E1 = One time ID is not correct
+E2 = The intended receiver dont receive a file due to network problem
+A.3.2 Feasibility Analysis
+Problem Definition: Search Module
+Searching a file within available clouds in Accessit. Given a failure case
+viz. Q , if user authentication fails and user inputs are invalid, we devise
+an algorithm for this problem as follows :
+For a Problem P1 to be NP-Hard , Satisfiability problem (SAT) must be
+reducible to P1; SAT P ;
+2015-2016 25 Group No. 07
+Department of Computer Engineering ACCESSit : an uniform interface
+Let the propositional formula be: G = (X1^X2)
+Where
+ X1 : True if authenticate.
+ X2 : True if input is valid file name.
+Algo sati()
+f
+For i = 1 to 2
+xi =Choice(True;False);
+if G(x1,x2) then Success();
+else
+failure();
+g
+Therefore, since the problem becomes a decision problem, it is NP.
+Satisfiability and Reducibility:
+3SAT problem is NP Complete. The system can be reduced to 3SAT
+problem. A 3SAT problem takes a Boolean formula S that is in CNF in
+which each clause has exactly three literals. 3SAT is a restricted form of
+CNF-SAT problem.
+ x1 :Authentication is done.
+ x2 :Valid input from the user for search.
+ x3 :Search module is evaluated and results are generated.
+S=(x1 ^x2^x3)
+Algosat()
+2015-2016 26 Group No. 07
+Department of Computer Engineering ACCESSit : an uniform interface
+f
+For i = 1 to 3
+Xi=Choice(true, false)
+I f (S(x1,x2,x3)= true)
+Success()
+Else
+Failure()
+g
+As it is NP problem and as it is verifiable in polynomial time, therefore it
+is NP-Complete problem.
+Definition:Delete Module
+Delete a file from available clouds in Accessit
+Given a failure case viz. Q , if user authentication fails and user inputs are
+invalid, we devise an algorithm for this problem as follows :
+For a Problem P2 to be NP-Hard , Satisfiability problem (SAT) must be
+reducible to P2; SAT P ;
+Let the propositional formula be: G = (X1^X2)
+Where
+– X1 : True if authentication of valid cloud account.
+– X2 : True if valid input file name.
+Algo sati()
+f
+For i = 1 to 2
+2015-2016 27 Group No. 07
+Department of Computer Engineering ACCESSit : an uniform interface
+xi =Choice(True;False);
+if G(x1,x2) then Success();
+else
+failure();
+g
+Therefore, since the problem becomes a decision problem, it is NP.
+Satisfiability and Reducibility:
+3SAT problem is NP Complete. The system can be reduced to 3SAT problem.
+A 3SAT problem takes a Boolean formula S that is in CNF in which
+each clause has exactly three literals. 3SAT is a restricted form of CNFSAT
+problem.
+– x1 :Authentication for valid cloud account is done
+– x2 :Valid input from the user for delete module..
+– x3 : Delete module is evaluated and changes are done on cloud
+data.
+S=(x1 ^x2^x3)
+Algosat()
+f
+For i = 1 to 3
+Xi=Choice(true, false)
+I f (S(x1,x2,x3)= true)
+Success()
+Else
+2015-2016 28 Group No. 07
+Department of Computer Engineering ACCESSit : an uniform interface
+Failure()
+g
+As it is NP problem and as it is verifiable in polynomial time, therefore it
+is NP-Complete problem.
+Problem Definition: FileSharing Module
+Share a file between users
+Given a failure case viz. Q , if user authentication fails and user inputs are
+invalid, we devise an algorithm for this problem as follows :
+For a Problem P2 to be NP-Hard , Satisfiability problem (SAT) must be
+reducible to P2; SAT P ;
+Let the propositional formula be: G = (X1^X2)
+Where
+– X1 : True if authentication of valid one time id.
+– X2 : True if valid input file name.
+Algo sati()
+f
+For i = 1 to 2
+xi =Choice(True;False);
+if G(x1,x2) then Success();
+else
+failure();
+g
+2015-2016 29 Group No. 07
+Department of Computer Engineering ACCESSit : an uniform interface
+Therefore, since the problem becomes a decision problem, it is NP.
+Satisfiability and Reducibility:
+3SAT problem is NP Complete. The system can be reduced to 3SAT problem.
+A 3SAT problem takes a Boolean formula S that is in CNF in which
+each clause has exactly three literals. 3SAT is a restricted form of CNFSAT
+problem.
+– x1 :Authentication for valid one time id is done.
+– x2 :Valid input from the user for FileSharing module
+– x3 :FileSharing module is evaluated and changes are done on
+target cloud data.
+S=(x1 ^x2^x3)
+Algosat()
+f
+For i = 1 to 3
+Xi=Choice(true, false)
+I f (S(x1,x2,x3)= true)
+Success()
+Else
+Failure()
+g
+As it is NP problem and as it is verifiable in polynomial time, therefore it
+is NP-Complete problem.
+2015-2016 30 Group No. 07
+Chapter B
+B.1 Introduction
+This project significantly reduces the human effort required to manage accounts
+on multiple cloud storage accounts. Additionally, we will provide
+many other features which will help user to manage his accounts in more
+refined way.
+Testing of this project is, therefore, very important to assure the correct
+working of the application.
+B.2 Test Items
+1. Connectivity
+– Connectivity between ACCESSit client and ACCESSit server.
+– Connectivity between client and server of each cloud service
+provider. (Proper functioning of APIs)
+– Connectivity between ACCESSit server and server of each
+cloud service provider.
+2. Synchronization
+– For every account
+3. Sending messages to ACCESSit server
+31
+Department of Computer Engineering ACCESSit : an uniform interface
+– Client side application should make sure that before and after
+file transfer, ACCESSit client should send appropriate message
+to server correctly.
+B.3 Features to be Tested
+Single search Low
+Pause and resume Medium
+File sharing High
+Reminders Low
+B.4 Reliability Testing
+The reliability of our application depends largely on the consistency of
+files. Our application should make sure that, correct file is downloaded
+and/or uploaded to/from appropriate server and appropriate client. Furthermore,
+before exchange of files we should authenticate the client. If
+this failed to happen then our application is unreliable.
+Here we define factors for reliability
+– Correct file.
+Correct file must be uploaded and/or downloaded.
+– Authentication
+User must be authenticated before file transfer.
+User should not get access to his account after resetting the password
+from website. He should be authenticated first.
+– Resume from right location.
+When paused, application should be able to hold the state cor-
+2015-2016 32 Group No. 07
+Department of Computer Engineering ACCESSit : an uniform interface
+rectly so that when resumed file transfer will resume from exactly
+same point from where it was stopped.
+B.5 Approach (Strategy)
+First we will develop basic GUI then we will integrate a single API then
+we will test everything for that account its connectivity, synchronization
+and reliability testing. Further, when this is done, we will add another API
+(API for another cloud storage provider) then we will test that API. Thus,
+similarly we will add account one by one and test it.
+2015-2016 33 Group No. 07
+Chapter C
+C.1 Individual Contributions
+– Atul Agarwal
+1. Research of material supporting the idea.
+2. Study of methods of existing approaches.
+3. Function Point Estimation (Project sizing)
+4. Feasibility Analysis.
+5. Preparation of UML diagrams.
+– Gaurav Chaudhari
+1. Preparation of mathematical model.
+2. Preparation of SRS.
+3. Feasibility Analysis.
+4. Project Documentation and LaTeX Report Preparation.
+5. ACM Keywords.
+6. Task Set identification.
+– Gaurav Deshpande
+1. IDEA Matrix preliminaries.
+2. Project Documentation and LaTeX Report Preparation.
+3. Risk Analysis.
+4. Preparation of UML diagrams.
+34
+Department of Computer Engineering ACCESSit : an uniform interface
+5. IDEA Matrix and Project Timeline.
+6. Functional Decomposition
+– Unmesh Deodhar
+1. Software development model.
+2. Task Set identification.
+3. Project scope identification.
+4. Test Cases and Test Plan.
+5. Identification of test cases.
+(Signature of Guide)
+DR. J. R. Prasad.
+2015-2016 35 Group No. 07
+References
+[1] https://www.dropbox.com/developers
+[2] https://www.multcloud.com/about
+[3] https://developers.google.com/drive/
+[4] https://dev.onedrive.com/
+36
