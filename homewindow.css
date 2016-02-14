@@ -1,0 +1,14 @@
+/*
+ * Empty Stylesheet file.
+ */
+
+.mainFxmlClass {
+    -fx-text-fill: #ffffff;
+    -fx-background-color: linear-gradient(#00ffcc,#ffffff);
+}
+
+.button{
+    -fx-text-fill: #ff0000;
+    -fx-background-color: linear-gradient(#00ffcc,#ffffff);
+    -fx-border-radius: 10;
+}
