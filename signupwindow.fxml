@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.text.*?>
+<?import java.lang.*?>
+<?import java.net.*?>
+<?import java.util.*?>
+<?import javafx.scene.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<AnchorPane id="AnchorPane" prefHeight="595.0" prefWidth="400.0" styleClass="mainFxmlClass" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="accessit.SignUpWindowController">
+    <stylesheets>
+        <URL value="@signupwindow.css" />
+    </stylesheets>
+   <children>
+      <Label layoutX="27.0" layoutY="27.0" text="Please fill the information below:">
+         <font>
+            <Font name="System Bold Italic" size="16.0" />
+         </font>
+      </Label>
+      <Label layoutX="27.0" layoutY="78.0" text="First Name:" />
+      <Label layoutX="27.0" layoutY="110.0" text="Last Name:" />
+      <Label layoutX="27.0" layoutY="142.0" text="E-mail:" />
+      <Label layoutX="27.0" layoutY="173.0" text="Usernme for ACCESSit:" />
+      <Label layoutX="30.0" layoutY="272.0" text="Password:" />
+      <Button fx:id="checkUsernameAvailabilityButton" layoutX="153.0" layoutY="207.0" mnemonicParsing="false" onAction="#onCheckUsernameAvailabilityButtonClicked" text="Check Availability" />
+      <Label layoutX="27.0" layoutY="304.0" text="Confirm Password:" />
+      <TextField fx:id="firstNameTextField" layoutX="153.0" layoutY="74.0" />
+      <TextField fx:id="lastNameTextField" layoutX="153.0" layoutY="106.0" />
+      <TextField fx:id="emailTextField" layoutX="153.0" layoutY="138.0" />
+      <TextField fx:id="usernameTextField" layoutX="153.0" layoutY="169.0" />
+      <Button fx:id="sendEmailButton" layoutX="153.0" layoutY="361.0" mnemonicParsing="false" onAction="#onSendEmailButtonClicked" text="Send E-mail" />
+      <Label fx:id="availableLabel" layoutX="153.0" layoutY="243.0" text="Available" textFill="LIME" visible="false" />
+      <Separator layoutX="16.0" layoutY="393.0" prefHeight="4.0" prefWidth="375.0" />
+      <Label layoutX="9.0" layoutY="418.0" text="Please Enter a One Time Temperory code sent to you on above email:">
+         <font>
+            <Font name="System Bold" size="12.0" />
+         </font>
+      </Label>
+      <TextField fx:id="oTPCodeTextField" layoutX="103.0" layoutY="448.0" />
+      <Button fx:id="submitButton" disable="true" layoutX="103.0" layoutY="508.0" mnemonicParsing="false" onAction="#onSubmitButtonClicked" text="Submit" />
+      <CheckBox fx:id="termsAndConditionsCheckBox" layoutX="103.0" layoutY="480.0" mnemonicParsing="false" onAction="#onTermsAndConditionsBoxActtion" text="I agree term and conditions" />
+      <Button fx:id="backButton" layoutX="352.0" layoutY="2.0" mnemonicParsing="false" onAction="#onBackButtonClicked" text="Back" AnchorPane.rightAnchor="5.0" AnchorPane.topAnchor="5.0" />
+      <Label fx:id="invalidLabel" layoutX="153.0" layoutY="334.0" text="Label" visible="false" />
+      <Button fx:id="helpPasswordButton" layoutX="236.0" layoutY="361.0" mnemonicParsing="false" onAction="#onHelpPasswordButtonClicked" text="Help Me to Set Password" />
+      <Button fx:id="troubleEmailButton" layoutX="161.0" layoutY="508.0" mnemonicParsing="false" onAction="#onTroubleButtonClicked" text="Trouble Receiving Email?" />
+      <PasswordField fx:id="passwordTextField" layoutX="153.0" layoutY="268.0" />
+      <PasswordField fx:id="confirmPasswordTextField" layoutX="153.0" layoutY="300.0" />
+   </children>
+</AnchorPane>
